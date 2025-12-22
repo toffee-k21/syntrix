@@ -6,4 +6,3 @@ region: process.env.AWS_REGION
 });
 
 export const ddb = DynamoDBDocumentClient.from(client);
-
