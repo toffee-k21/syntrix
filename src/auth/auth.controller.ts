@@ -14,7 +14,7 @@ TableName:USERS,
 Item: { userId, email, password }
   }));
 
-  res.json({success:true });
+  res.json({token:signToken({ userId }) });
 }
 
 export async function signin(req:any,res:any) {

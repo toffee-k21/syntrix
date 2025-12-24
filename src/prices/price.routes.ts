@@ -5,13 +5,13 @@ import { ddb }from"../db/dynamo";
 const r =Router();
 
 r.get("/history",async (req, res) => {
-const symbol = req.query.symbolasstring;
+const symbol = req.query.symbol as string;
 
-const result =await ddb.send(new QueryCommand({
-TableName:"MarketPrices",
-KeyConditionExpression:"symbol = :s",
-ExpressionAttributeValues: {":s":symbol },
-ScanIndexForward:true
+const result = await ddb.send(new QueryCommand({
+    TableName:"MarketPrices",
+    KeyConditionExpression:"symbol = :s",
+    ExpressionAttributeValues: {":s":symbol },
+    ScanIndexForward:true
   }));
 
   res.json(result.Items || []);

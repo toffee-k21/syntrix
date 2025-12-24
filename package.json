@@ -12,13 +12,16 @@
   },
   "license": "ISC",
   "author": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npm run build && node dist/server.js",
+    "build": "esbuild src/server.ts --bundle --platform=node --target=node18 --outfile=dist/server.js && esbuild src/workers/price.worker.ts --bundle --platform=node --target=node18 --outfile=dist/workers/price.worker.js",
+    "start": "node dist/server.js"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {

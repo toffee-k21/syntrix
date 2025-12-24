@@ -2,27 +2,27 @@
 <html>
 <head>
 <title>Crypto Tracker</title>
-<scriptsrc="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <h2>Real-Time Crypto Price Tracker</h2>
 
-<selectid="symbol">
-<optionvalue="BTC">Bitcoin (BTC)</option>
-<optionvalue="ETH">Ethereum (ETH)</option>
+<select id="symbol">
+<option value="BTC">Bitcoin (BTC)</option>
+<option value="ETH">Ethereum (ETH)</option>
 </select>
 
-<canvasid="lineChart"width="900"height="400"></canvas>
+<canvas id="lineChart"width="900"height="400"></canvas>
 
 <script>
-const ctx =document.getElementById("lineChart").getContext("2d");
+const ctx = document.getElementById("lineChart").getContext("2d");
 let chart;
 let activeSymbol ="BTC";
 
 async function loadHistory(symbol) {
-const res = await fetch(`/prices/history?symbol=${symbol}`);
-return res.json();
+    const res = await fetch(`/prices/history?symbol=${symbol}`);
+    return res.json();
   }
 
 async function initChart(symbol) {
@@ -31,44 +31,44 @@ const data = await loadHistory(symbol);
     chart?.destroy();
 
     chart = new Chart(ctx, {
-type:"line",
-data: {
-labels: data.map(d =>newDate(d.timestamp).toLocaleTimeString()),
-datasets: [{
-label:`${symbol} Price (USD)`,
-data: data.map(d => d.price),
-borderColor:"#2563eb",
-fill:false,
-tension:0.35
+        type:"line",
+        data: {
+        labels: data.map(d =>newDate(d.timestamp).toLocaleTimeString()),
+        datasets: [{
+        label:`${symbol} Price (USD)`,
+        data: data.map(d => d.price),
+        borderColor:"#2563eb",
+        fill:false,
+        tension:0.35
         }]
       }
     });
   }
-
-const ws =newWebSocket("wss://ws.velyx.me");
+const apiKey = "<%= apiKey %>";
+const ws = new WebSocket(`wss://velyx.me/ws?apiKey=${apiKey}`);
 
   ws.onopen =() => {
     ws.send(JSON.stringify({
-action:"subscribe",
-topic:"crypto.prices"
+        action:"subscribe",
+        topic:"crypto:prices"
     }));
   };
 
-  ws.onmessage =(e) => {
-const msg = JSON.parse(e.data);
-if (msg.topic !== "crypto.prices" )return;
-if (msg.data.symbol !== activeSymbol)return;
+  ws.onmessage = (e) => {
+    const msg = JSON.parse(e.data);
+    if (msg.topic !== "crypto:prices" )return;
+    if (msg.data.symbol !== activeSymbol)return;
 
     chart.data.labels.push(
-newDate(msg.data.timestamp).toLocaleTimeString()
+        newDate(msg.data.timestamp).toLocaleTimeString()
     );
     chart.data.datasets[0].data.push(msg.data.price);
     chart.update("none");
   };
 
-document.getElementById("symbol").addEventListener("change",async e => {
+  document.getElementById("symbol").addEventListener("change",async e => {
     activeSymbol = e.target.value;
-await initChart(activeSymbol);
+    await initChart(activeSymbol);
   });
 
 initChart(activeSymbol);
