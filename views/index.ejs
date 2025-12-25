@@ -21,6 +21,7 @@ let chart;
 let activeSymbol ="BTC";
 
 async function loadHistory(symbol) {
+  console.log("fetch")
     const res = await fetch(`/prices/history?symbol=${symbol}`);
     return res.json();
   }
