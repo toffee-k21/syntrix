@@ -57,7 +57,6 @@ const ws = new WebSocket(`wss://velyx.me/ws?apiKey=${apiKey}`);
   ws.onmessage = (e) => {
     const msg = JSON.parse(e.data);
     console.log("msg",msg);
-    if (msg.topic !== "crypto:prices" )return;
     if (msg.symbol !== activeSymbol)return;
 
     chart.data.labels.push(
