@@ -6,8 +6,14 @@ import { ddb }from"../db/dynamo";
 
 const WATCHLIST ="Watchlist";
 
+console.log({
+  region: process.env.AWS_REGION,
+});
+
+
 async function poll() {
   const prices:Record<string, number> = await fetchPrices();
+  console.log("polled !", prices);
   const timestamp = Date.now();
 
   for (const symbol of Object.keys(prices)) {
@@ -24,7 +30,7 @@ async function poll() {
     });
 
     // 3. Evaluate alerts
-    const alerts =await ddb.send(new QueryCommand({
+    const alerts = await ddb.send(new QueryCommand({
       TableName:WATCHLIST,
       IndexName:"cryptoSymbol-index",
       KeyConditionExpression:"cryptoSymbol = :s",
@@ -42,4 +48,4 @@ async function poll() {
 }
 
 poll();
-setInterval(poll, 5000);
+setInterval(poll, 30_000);

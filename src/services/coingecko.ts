@@ -11,4 +11,3 @@ export async function fetchPrices() {
     ETH: res.data.ethereum.usd
     };
 }
-

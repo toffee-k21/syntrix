@@ -8,6 +8,7 @@ export async function saveMarketPrice(
     await ddb.send(new PutCommand({
         TableName:"MarketPrices",
         Item: {
+            priceId: symbol,
             symbol,
             timestamp:Date.now(),
             price

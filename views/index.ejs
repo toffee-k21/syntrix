@@ -33,7 +33,7 @@ const data = await loadHistory(symbol);
     chart = new Chart(ctx, {
         type:"line",
         data: {
-        labels: data.map(d =>newDate(d.timestamp).toLocaleTimeString()),
+        labels: data.map(d =>new Date(d.timestamp).toLocaleTimeString()),
         datasets: [{
         label:`${symbol} Price (USD)`,
         data: data.map(d => d.price),
@@ -49,20 +49,21 @@ const ws = new WebSocket(`wss://velyx.me/ws?apiKey=${apiKey}`);
 
   ws.onopen =() => {
     ws.send(JSON.stringify({
-        action:"subscribe",
+        type:"subscribe",
         topic:"crypto:prices"
     }));
   };
 
   ws.onmessage = (e) => {
     const msg = JSON.parse(e.data);
+    console.log("msg",msg);
     if (msg.topic !== "crypto:prices" )return;
-    if (msg.data.symbol !== activeSymbol)return;
+    if (msg.symbol !== activeSymbol)return;
 
     chart.data.labels.push(
-        newDate(msg.data.timestamp).toLocaleTimeString()
+        new Date(msg.timestamp).toLocaleTimeString()
     );
-    chart.data.datasets[0].data.push(msg.data.price);
+    chart.data.datasets[0].data.push(msg.price);
     chart.update("none");
   };
 

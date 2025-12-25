@@ -9,8 +9,8 @@ const symbol = req.query.symbol as string;
 
 const result = await ddb.send(new QueryCommand({
     TableName:"MarketPrices",
-    KeyConditionExpression:"symbol = :s",
-    ExpressionAttributeValues: {":s":symbol },
+    KeyConditionExpression:"priceId = :s", // as priceId === symbol
+    ExpressionAttributeValues: {":s":symbol }, 
     ScanIndexForward:true
   }));
 
