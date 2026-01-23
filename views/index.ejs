@@ -486,7 +486,7 @@
     }
 
     const apiKey = "<%= apiKey %>";
-    const ws = new WebSocket(`wss://velyx.me/ws?apiKey=${apiKey}`);
+    const ws = new WebSocket(`wss://velyx.me/ws?appId=${apiKey}`);
 
     ws.onopen = () => {
       statusTextEl.textContent = "Live";
