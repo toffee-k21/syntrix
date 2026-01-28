@@ -3,8 +3,7 @@ import { authMiddleware }from "../middleware/auth.middleware";
 import { addAlert, listAlerts }from "./watchlist.controller";
 
 const r = Router();
-r.post("/", authMiddleware, addAlert);
-r.get("/", authMiddleware, listAlerts);
+r.post("/add", authMiddleware, addAlert);
+r.get("/list", authMiddleware, listAlerts);
 
 export default r;
-

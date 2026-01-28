@@ -18,4 +18,4 @@ app.use("/prices", priceRoutes);
 
 app.get("/",(_, res) => res.render("index", {apiKey : process.env.VELYX_APP_ID!}));
 app.get("/signin", (_, res) => res.render("signin"));
-
+app.get("/watchlist-ui", (_, res) => res.render("watchlist"));

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cryon • Watchlist</title>
+
+    <style>
+    :root {
+      --bg: #070a10;
+      --surface: #0c111b;
+      --surface2: #0f1623;
+
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+
+      --text: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.58);
+      --muted2: rgba(255, 255, 255, 0.36);
+
+      --accent: #5b8cff;
+      --accent2: #2f6bff;
+
+      --green: #2ee59d;
+      --red: #ff5c5c;
+
+      --radius: 18px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(91, 140, 255, 0.12), transparent 55%),
+        radial-gradient(900px 500px at 85% 35%, rgba(46, 229, 157, 0.06), transparent 60%),
+        var(--bg);
+      padding: 26px;
+    }
+
+    .wrap {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .left {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 950;
+      letter-spacing: 0.4px;
+      background: linear-gradient(135deg, rgba(91, 140, 255, 1), rgba(47, 107, 255, 0.35));
+      border: 1px solid rgba(91, 140, 255, 0.35);
+      box-shadow: 0 18px 50px rgba(91, 140, 255, 0.18);
+    }
+
+    .brand-title h1 {
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-title p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .tag {
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.75);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .headline {
+      font-size: 28px;
+      font-weight: 950;
+      letter-spacing: -0.8px;
+      line-height: 1.1;
+      margin-top: 4px;
+    }
+
+    .subtext {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 360px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .input {
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+    }
+
+    .input::placeholder {
+      color: var(--muted2);
+    }
+
+    .btn {
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      padding: 12px 14px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-weight: 900;
+      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(91, 140, 255, 1), rgba(47, 107, 255, 0.55));
+      border: 1px solid rgba(91, 140, 255, 0.35);
+    }
+
+    .msg {
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      display: none;
+    }
+
+    .msg.ok {
+      display: block;
+      border-color: rgba(46, 229, 157, 0.25);
+      color: rgba(46, 229, 157, 0.9);
+      background: rgba(46, 229, 157, 0.06);
+    }
+
+    .msg.err {
+      display: block;
+      border-color: rgba(255, 92, 92, 0.25);
+      color: rgba(255, 92, 92, 0.95);
+      background: rgba(255, 92, 92, 0.06);
+    }
+
+    .right {
+      padding: 16px;
+      background: var(--surface2);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .box {
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .box h2 {
+      font-size: 15px;
+      font-weight: 950;
+      margin-bottom: 10px;
+    }
+
+    .empty {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+    }
+
+    .list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .alert-card {
+      padding: 14px;
+      border-radius: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .alert-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .symbol {
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: 0.2px;
+    }
+
+    .pill {
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .meta {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 980px) {
+      .wrap { grid-template-columns: 1fr; }
+      .list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- LEFT -->
+    <section class="card left">
+      <div class="brand">
+        <div class="brand-left">
+          <div class="logo">C</div>
+          <div class="brand-title">
+            <h1>Cryon</h1>
+            <p>Watchlist Alerts</p>
+          </div>
+        </div>
+        <div class="tag">Secure</div>
+      </div>
+
+      <div class="headline">Add Alert</div>
+
+      <p class="subtext">
+        Create price alerts for your crypto symbol.
+      </p>
+
+      <div class="field">
+        <div class="label">Crypto Symbol</div>
+        <input
+          id="cryptoSymbol"
+          class="input"
+          placeholder="BTC / ETH"
+          oninput="this.value = this.value.toUpperCase()"
+        />
+      </div>
+
+      <div class="field">
+        <div class="label">Alert Price (USD)</div>
+        <input
+          id="alertPrice"
+          class="input"
+          type="number"
+          placeholder="e.g. 42000"
+          min="0"
+        />
+      </div>
+
+      <button class="btn primary" onclick="addAlert()">Add Alert →</button>
+
+      <div id="msgBox" class="msg"></div>
+
+      <a href="/" style="text-decoration:none;">
+        <button class="btn" type="button">← Back</button>
+      </a>
+    </section>
+
+    <!-- RIGHT -->
+    <section class="card right">
+      <div class="box">
+        <h2>Your Alerts</h2>
+        <div id="alerts" class="list"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const msgBox = document.getElementById("msgBox");
+    const alertsEl = document.getElementById("alerts");
+    let allAlerts = [];
+
+    /* ===========================
+       AUTH (COOKIE BASED)
+    ============================ */
+    function getToken() {
+      return document.cookie
+        .split("; ")
+        .find(row => row.startsWith("auth_token="))
+        ?.split("=")[1] || null;
+    }
+
+    // Protect page
+    (function protectPage() {
+      if (!getToken()) {
+        window.location.href = "/signin";
+      }
+    })();
+
+    /* ===========================
+       HELPERS
+    ============================ */
+    function showMsg(text, type) {
+      msgBox.className = "msg " + (type || "");
+      msgBox.textContent = text;
+    }
+
+    function formatUSD(num) {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 2
+      }).format(Number(num));
+    }
+
+    function renderAlerts(list) {
+      if (!list.length) {
+        alertsEl.innerHTML = `<div class="empty">No alerts found.</div>`;
+        return;
+      }
+
+      alertsEl.innerHTML = list.map(item => `
+        <div class="alert-card">
+          <div class="alert-top">
+            <div class="symbol">${item.cryptoSymbol.toUpperCase()}</div>
+            <div class="pill">Active</div>
+          </div>
+          <div class="meta">
+            Target: <b>${formatUSD(item.alertPrice)}</b><br/>
+            <span style="color:var(--muted2)">ID:</span>
+            <span style="color:var(--muted)">${item.watchListId}</span>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    /* ===========================
+       API
+    ============================ */
+    async function loadAlerts() {
+      const token = getToken();
+      if (!token) return;
+
+      try {
+        const res = await fetch("/watchlist/list", {
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        });
+
+        if (!res.ok) {
+          alertsEl.innerHTML =
+            `<div class="empty">Session expired. Please sign in again.</div>`;
+          return;
+        }
+
+        allAlerts = await res.json();
+        renderAlerts(allAlerts);
+      } catch {
+        alertsEl.innerHTML =
+          `<div class="empty">Failed to load alerts.</div>`;
+      }
+    }
+
+    async function addAlert() {
+      const token = getToken();
+      if (!token) {
+        showMsg("Please sign in first.", "err");
+        return;
+      }
+
+      const cryptoSymbol =
+        document.getElementById("cryptoSymbol").value.trim();
+      const alertPrice =
+        Number(document.getElementById("alertPrice").value);
+
+      if (!cryptoSymbol || alertPrice <= 0) {
+        showMsg("Enter a valid symbol and price.", "err");
+        return;
+      }
+
+      try {
+        const res = await fetch("/watchlist/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+          },
+          body: JSON.stringify({ cryptoSymbol, alertPrice })
+        });
+
+        if (!res.ok) {
+          showMsg("Failed to add alert.", "err");
+          return;
+        }
+
+        showMsg("Alert added successfully!", "ok");
+        document.getElementById("cryptoSymbol").value = "";
+        document.getElementById("alertPrice").value = "";
+        await loadAlerts();
+      } catch {
+        showMsg("Something went wrong.", "err");
+      }
+    }
+
+    loadAlerts();
+  </script>
+</body>
+</html>

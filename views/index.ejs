@@ -8,28 +8,17 @@
 
   <style>
     :root {
-      /* Base */
       --bg: #070a10;
       --surface: #0c111b;
       --surface2: #0f1623;
-
-      /* Borders + shadow */
       --border: rgba(255, 255, 255, 0.08);
       --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
-
-      /* Text */
       --text: rgba(255, 255, 255, 0.92);
       --muted: rgba(255, 255, 255, 0.58);
       --muted2: rgba(255, 255, 255, 0.36);
-
-      /* Accent */
       --accent: #5b8cff;
-      --accent2: #2f6bff;
-
-      /* Status */
       --green: #2ee59d;
       --red: #ff5c5c;
-
       --radius: 18px;
     }
 
@@ -50,14 +39,12 @@
       padding: 26px;
     }
 
-    /* Layout */
     .wrap {
       width: min(1180px, 100%);
       margin: 0 auto;
       display: grid;
       grid-template-columns: 360px 1fr;
       gap: 16px;
-      align-items: stretch;
     }
 
     .card {
@@ -67,7 +54,7 @@
       box-shadow: var(--shadow);
     }
 
-    /* Left */
+    /* LEFT SIDEBAR */
     .left {
       padding: 22px;
       display: flex;
@@ -79,7 +66,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
     }
 
     .brand-left {
@@ -95,88 +81,80 @@
       display: grid;
       place-items: center;
       font-weight: 950;
-      letter-spacing: 0.4px;
-      background: linear-gradient(135deg, rgba(91, 140, 255, 1), rgba(47, 107, 255, 0.35));
-      border: 1px solid rgba(91, 140, 255, 0.35);
-      box-shadow: 0 18px 50px rgba(91, 140, 255, 0.18);
+      background: linear-gradient(135deg, #5b8cff, #2f6bff);
     }
 
     .brand-title h1 {
       font-size: 14px;
       font-weight: 900;
-      letter-spacing: 0.2px;
     }
 
     .brand-title p {
       font-size: 12px;
       color: var(--muted);
-      margin-top: 2px;
     }
 
     .tag {
       font-size: 12px;
       font-weight: 800;
-      color: rgba(255, 255, 255, 0.75);
-      padding: 8px 12px;
+      padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
     .headline {
       font-size: 42px;
       font-weight: 950;
-      letter-spacing: -1px;
       line-height: 1.05;
-      margin-top: 4px;
     }
 
     .subtext {
       font-size: 14px;
       color: var(--muted);
-      line-height: 1.7;
-      max-width: 310px;
+      line-height: 1.6;
+      max-width: 300px;
     }
 
-    .left-footer {
-      margin-top: auto;
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      padding-top: 10px;
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
     }
 
     .btn {
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04);
       color: var(--text);
       padding: 12px 14px;
       border-radius: 16px;
       cursor: pointer;
       font-weight: 900;
-      transition: 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+      transition: 0.2s;
+      width: 100%;
     }
 
     .btn:hover {
       transform: translateY(-1px);
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255,255,255,0.06);
     }
 
     .btn.primary {
-      background: linear-gradient(135deg, rgba(91, 140, 255, 1), rgba(47, 107, 255, 0.55));
-      border: 1px solid rgba(91, 140, 255, 0.35);
+      background: linear-gradient(135deg, #5b8cff, #2f6bff);
     }
 
     .hint {
-      color: var(--muted2);
       font-size: 13px;
-      user-select: none;
+      color: var(--muted2);
     }
 
-    /* Right */
+    .left-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* RIGHT */
     .right {
       padding: 16px;
       display: grid;
@@ -187,353 +165,155 @@
 
     .controls {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
       gap: 12px;
       padding: 14px;
       background: var(--surface);
-      border: 1px solid var(--border);
       border-radius: var(--radius);
     }
 
     .search {
       flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 14px;
+      padding: 12px;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(0, 0, 0, 0.25);
-      color: var(--muted);
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .search input {
-      flex: 1;
+      width: 100%;
       border: none;
       outline: none;
       background: transparent;
       color: var(--text);
-      font-size: 14px;
-    }
-
-    .search input::placeholder {
-      color: var(--muted2);
     }
 
     .select {
-      padding: 12px 14px;
+      padding: 12px;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.08);
       color: var(--text);
-      font-weight: 900;
-      outline: none;
-      cursor: pointer;
-      min-width: 170px;
+      font-weight: 800;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3,1fr);
       gap: 12px;
     }
 
     .stat {
       padding: 14px;
-      border-radius: 16px;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border-radius: 16px;
     }
 
     .stat p {
       font-size: 12px;
       color: var(--muted);
-      margin-bottom: 6px;
     }
 
     .stat h3 {
       font-size: 16px;
-      font-weight: 950;
-      letter-spacing: -0.2px;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 800;
-    }
-
-    .dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: var(--red);
-    }
-
-    .dot.live {
-      background: var(--green);
+      font-weight: 900;
     }
 
     .chart-card {
       padding: 16px;
-      border-radius: 18px;
       background: var(--surface);
-      border: 1px solid var(--border);
-    }
-
-    .chart-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-
-    .chart-head h2 {
-      font-size: 15px;
-      font-weight: 950;
-    }
-
-    .badge {
-      padding: 7px 11px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 900;
-      color: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      background: rgba(255, 255, 255, 0.03);
+      border-radius: 18px;
     }
 
     canvas {
-      width: 100% !important;
       height: 420px !important;
     }
 
     @media (max-width: 980px) {
-      .wrap {
-        grid-template-columns: 1fr;
-      }
-      .headline {
-        font-size: 34px;
-      }
-      canvas {
-        height: 360px !important;
-      }
-      .stats {
-        grid-template-columns: 1fr;
-      }
+      .wrap { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+<div class="wrap">
 
-    <!-- LEFT -->
-    <section class="card left">
-      <div class="brand">
-        <div class="brand-left">
-          <div class="logo">C</div>
-          <div class="brand-title">
-            <h1>Cryon</h1>
-            <p>Minimal dark dashboard</p>
-          </div>
-        </div>
-        <div class="tag">Realtime</div>
-      </div>
-
-      <div class="headline">
-        Cryon<br />
-      </div>
-
-      <p class="subtext">
-        Live crypto tracking with a minimal UI.
-        Fast updates. Clean layout. No distractions.
-      </p>
-
-      <div class="left-footer">
-        <button class="btn primary" onclick="alert('Demo UI only ✨')">Sign in →</button>
-        <div class="hint">Ctrl + K to search</div>
-      </div>
-    </section>
-
-    <!-- RIGHT -->
-    <section class="card right">
-
-      <!-- Controls -->
-      <div class="controls">
-        <div class="search">
-          🔍 <input placeholder="Search crypto..." />
-        </div>
-
-        <select id="symbol" class="select">
-          <option value="BTC">Bitcoin (BTC)</option>
-          <option value="ETH">Ethereum (ETH)</option>
-        </select>
-      </div>
-
-      <!-- Stats -->
-      <div class="stats">
-        <div class="stat">
-          <p>Selected Coin</p>
-          <h3 id="selectedCoin">BTC</h3>
-        </div>
-
-        <div class="stat">
-          <p>Latest Price</p>
-          <h3 id="latestPrice">$ —</h3>
-        </div>
-
-        <div class="stat">
-          <p>Connection</p>
-          <h3 class="status">
-            <span id="dot" class="dot"></span>
-            <span id="statusText">Connecting…</span>
-          </h3>
+  <!-- LEFT -->
+  <section class="card left">
+    <div class="brand">
+      <div class="brand-left">
+        <div class="logo">C</div>
+        <div class="brand-title">
+          <h1>Cryon</h1>
+          <p>Minimal crypto dashboard</p>
         </div>
       </div>
+      <div class="tag">Live</div>
+    </div>
 
-      <!-- Chart -->
-      <div class="chart-card">
-        <div class="chart-head">
-          <h2 id="chartTitle">BTC Price (USD)</h2>
-          <span class="badge">Live</span>
-        </div>
+    <div class="headline">Cryon</div>
 
-        <canvas id="lineChart"></canvas>
+    <p class="subtext">
+      Track crypto prices in real time.
+      Create alerts. Stay ahead.
+    </p>
+
+    <div class="divider"></div>
+
+    <button class="btn primary" onclick="goToWatchlist()">
+      Open Watchlist →
+    </button>
+
+    <p class="hint">
+      Manage alerts & monitor your favorite coins.
+    </p>
+
+    <div class="left-footer">
+      <div class="divider"></div>
+      <div class="hint">Ctrl + K to search</div>
+    </div>
+  </section>
+
+  <!-- RIGHT -->
+  <section class="card right">
+    <div class="controls">
+      <div class="search">
+        <input placeholder="Search crypto..." />
       </div>
+      <select id="symbol" class="select">
+        <option value="BTC">Bitcoin (BTC)</option>
+        <option value="ETH">Ethereum (ETH)</option>
+      </select>
+    </div>
 
-    </section>
-  </div>
+    <div class="stats">
+      <div class="stat"><p>Selected</p><h3 id="selectedCoin">BTC</h3></div>
+      <div class="stat"><p>Price</p><h3 id="latestPrice">$ —</h3></div>
+      <div class="stat"><p>Status</p><h3 id="statusText">Connecting…</h3></div>
+    </div>
 
-  <script>
-    const ctx = document.getElementById("lineChart").getContext("2d");
-    let chart;
-    let activeSymbol = "BTC";
+    <div class="chart-card">
+      <canvas id="lineChart"></canvas>
+    </div>
+  </section>
+</div>
 
-    const selectedCoinEl = document.getElementById("selectedCoin");
-    const latestPriceEl = document.getElementById("latestPrice");
-    const statusTextEl = document.getElementById("statusText");
-    const chartTitleEl = document.getElementById("chartTitle");
-    const dotEl = document.getElementById("dot");
+<script>
+  const apiKey = "<%= apiKey %>";
 
-    async function loadHistory(symbol) {
-      const res = await fetch(`/prices/history?symbol=${symbol}`);
-      return res.json();
+  function getToken() {
+    return document.cookie
+      .split("; ")
+      .find(row => row.startsWith("auth_token="))
+      ?.split("=")[1] || null;
+  }
+
+  function goToWatchlist() {
+    if (!getToken()) {
+      window.location.href = "/signin";
+    } else {
+      window.location.href = "/watchlist-ui";
     }
-
-    function formatUSD(num) {
-      if (!num && num !== 0) return "$ —";
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 2
-      }).format(num);
-    }
-
-    async function initChart(symbol) {
-      const data = await loadHistory(symbol);
-
-      chart?.destroy();
-
-      chart = new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: data.map(d => new Date(d.timestamp).toLocaleTimeString()),
-          datasets: [{
-            label: `${symbol} Price (USD)`,
-            data: data.map(d => d.price),
-            borderColor: "#5b8cff",
-            borderWidth: 2,
-            pointRadius: 0,
-            fill: true,
-            backgroundColor: "rgba(91, 140, 255, 0.12)",
-            tension: 0.35
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { labels: { color: "rgba(255,255,255,0.65)" } },
-            tooltip: {
-              backgroundColor: "rgba(8, 10, 16, 0.95)",
-              titleColor: "rgba(255,255,255,0.9)",
-              bodyColor: "rgba(255,255,255,0.75)",
-              borderColor: "rgba(255,255,255,0.10)",
-              borderWidth: 1
-            }
-          },
-          scales: {
-            x: {
-              ticks: { color: "rgba(255,255,255,0.35)" },
-              grid: { color: "rgba(255,255,255,0.04)" }
-            },
-            y: {
-              ticks: { color: "rgba(255,255,255,0.35)" },
-              grid: { color: "rgba(255,255,255,0.04)" }
-            }
-          }
-        }
-      });
-
-      if (data.length) {
-        latestPriceEl.textContent = formatUSD(data[data.length - 1].price);
-      }
-    }
-
-    const apiKey = "<%= apiKey %>";
-    const ws = new WebSocket(`wss://velyx.me/ws?appId=${apiKey}`);
-
-    ws.onopen = () => {
-      statusTextEl.textContent = "Live";
-      dotEl.classList.add("live");
-      ws.send(JSON.stringify({ type: "subscribe", topic: "crypto:prices" }));
-    };
-
-    ws.onerror = () => {
-      statusTextEl.textContent = "Error";
-      dotEl.classList.remove("live");
-    };
-
-    ws.onclose = () => {
-      statusTextEl.textContent = "Disconnected";
-      dotEl.classList.remove("live");
-    };
-
-    ws.onmessage = (e) => {
-      const msg = JSON.parse(e.data);
-      if (msg.symbol !== activeSymbol) return;
-
-      latestPriceEl.textContent = formatUSD(msg.price);
-
-      chart.data.labels.push(new Date(msg.timestamp).toLocaleTimeString());
-      chart.data.datasets[0].data.push(msg.price);
-
-      if (chart.data.labels.length > 60) {
-        chart.data.labels.shift();
-        chart.data.datasets[0].data.shift();
-      }
-
-      chart.update("none");
-    };
-
-    document.getElementById("symbol").addEventListener("change", async (e) => {
-      activeSymbol = e.target.value;
-
-      selectedCoinEl.textContent = activeSymbol;
-      chartTitleEl.textContent = `${activeSymbol} Price (USD)`;
-      latestPriceEl.textContent = "$ —";
-
-      await initChart(activeSymbol);
-    });
-
-    selectedCoinEl.textContent = activeSymbol;
-    chartTitleEl.textContent = `${activeSymbol} Price (USD)`;
-    initChart(activeSymbol);
-  </script>
+  }
+</script>
 </body>
 </html>
